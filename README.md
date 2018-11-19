@@ -10,11 +10,15 @@ Linux image for building `deltachat-desktop`.
 
 ## Build
 
-Currently you can build and push all images by doing `make`. In order to push images to `hub.docker.com` you need to be logged in:
+Currently you build all images by doing `make build`.
+
+In order to push images to `hub.docker.com` you first need to be logged in:
 
 ```sh
 $ docker login
 ```
+
+Before doing `make push`.
 
 This only needs to be done once per machine. Credentials are stored in `~/.docker/config.json`.
 
