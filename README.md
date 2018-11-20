@@ -4,9 +4,9 @@
 
 ## Images
 
-### `linux-stretch-node-11`
+### `debian-stretch-node-11`
 
-Linux image for building `deltachat-desktop`.
+Linux image for building `deltachat-desktop` based on Debian Stretch and node v11. It contains support for running `chromium` and `xvfb` because running a headless `electron` requires using a virtual frame buffer.
 
 ## Build
 
