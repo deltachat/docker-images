@@ -1,4 +1,4 @@
-FROM node:11-stretch
+FROM debian:stretch
 
 RUN apt-get update \
 && apt-get upgrade -y \
