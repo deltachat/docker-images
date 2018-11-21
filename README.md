@@ -10,7 +10,7 @@ Linux image for building `deltachat-desktop` based on Debian Stretch and node v1
 
 ### `debian-stretch-android`
 
-Linux image for building `deltachat-android-ii` based on Debian Stretc.
+Linux image for building `deltachat-android-ii` based on Debian Stretch.
 
 ## Build
 
