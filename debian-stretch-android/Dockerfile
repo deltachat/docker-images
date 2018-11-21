@@ -10,6 +10,8 @@ libssl-dev \
 libsasl2-dev \
 libsqlite3-dev \
 zlib1g-dev \
+git \
+unzip \
 && pip3 install meson
 
 ENV ANDROID_SDK_FILENAME sdk-tools-linux-4333796.zip
@@ -20,6 +22,6 @@ ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 RUN cd /usr/local/ && \
     wget -q ${ANDROID_SDK_URL} && \
-    tar -xzf ${ANDROID_SDK_FILENAME} && \
+    unzip ${ANDROID_SDK_FILENAME} && \
     rm ${ANDROID_SDK_FILENAME}
 
