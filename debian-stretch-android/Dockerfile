@@ -20,7 +20,8 @@ ENV ANDROID_API_LEVELS android-27
 ENV ANDROID_BUILD_TOOLS_VERSION 27.0.3
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-RUN cd /usr/local/ && \
+RUN mkdir /usr/local/android-sdk-linux && \
+    cd /usr/local/android-sdk-linux && \
     wget -q ${ANDROID_SDK_URL} && \
     unzip ${ANDROID_SDK_FILENAME} && \
     rm ${ANDROID_SDK_FILENAME}
