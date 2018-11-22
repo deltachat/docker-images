@@ -19,10 +19,32 @@ ENV ANDROID_SDK_URL https://dl.google.com/android/repository/${ANDROID_SDK_FILEN
 ENV ANDROID_API_LEVELS android-27
 ENV ANDROID_BUILD_TOOLS_VERSION 27.0.3
 ENV ANDROID_HOME /usr/local/android-sdk-linux
-ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools/bin
 RUN mkdir /usr/local/android-sdk-linux && \
     cd /usr/local/android-sdk-linux && \
     wget -q ${ANDROID_SDK_URL} && \
     unzip ${ANDROID_SDK_FILENAME} && \
     rm ${ANDROID_SDK_FILENAME}
-
+RUN apt-get install -y software-properties-common && \
+    apt-get update -y && \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get upgrade -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get autoremove -y && \
+    apt-get clean
+# need to accept the lincences manually
+ENV ANDROID_LICENSES ${ANDROID_HOME}/licenses
+RUN mkdir ${ANDROID_LICENSES} && \
+    echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> ${ANDROID_LICENSES}/android-sdk-license
+RUN sdkmanager "platform-tools" "platforms;android-27"
+RUN cd ~ && \
+    git clone --recursive https://github.com/deltachat/deltachat-android-ii.git
+# this will load the most current NDK Bundle. There have been problems with that in the past and we probably should be using r14b (see the Readme.MD in android-ii)
+RUN sdkmanager "ndk-bundle"
+ENV PATH ${PATH}:${ANDROID_HOME}/ndk-bundle
+#RUN cd ~/deltachat-android-ii && \
+#    ndk-build
+#RUN cd ~/deltachat-android-ii && \
+#    ./gradlew
+#RUN cd ~/deltachat-android-ii/build/outputs/apk/website/release/ && \
+#    ls Deltachat-website-release-unsigned*.apk
