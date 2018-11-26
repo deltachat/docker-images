@@ -1,5 +1,5 @@
 build:
-	docker build --no-cache -t deltachat/debian-stretch-android .
+	docker build -t deltachat/debian-stretch-android .
 
 push:
 	docker push deltachat/debian-stretch-android
