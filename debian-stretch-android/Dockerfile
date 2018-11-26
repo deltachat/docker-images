@@ -41,16 +41,19 @@ RUN cd ~ && \
     git clone --recursive https://github.com/deltachat/deltachat-android-ii.git
 # this would load the most current NDK Bundle. There have been problems with that in the past and we are using r14b currently (see the Readme.MD in android-ii)
 # RUN sdkmanager "ndk-bundle"
-ENV NDK_FILE android-ndk-r16b-linux-x86_64.zip
+ENV NDK_FILE android-ndk-r14b-linux-x86_64.zip
 RUN cd /usr/local/android-sdk-linux && \
     wget https://dl.google.com/android/repository/${NDK_FILE} && \
     unzip ${NDK_FILE} && \
     rm ${NDK_FILE}
-RUN ln -s /usr/local/android-sdk-linux/android-ndk-r16b ${ANDROID_HOME}/ndk-bundle
+RUN ln -s /usr/local/android-sdk-linux/android-ndk-r14b ${ANDROID_HOME}/ndk-bundle
 ENV PATH ${PATH}:${ANDROID_HOME}/ndk-bundle
 RUN cd ~/deltachat-android-ii && \
     ndk-build
-#RUN cd ~/deltachat-android-ii && \
-#    ./gradlew
-#RUN cd ~/deltachat-android-ii/build/outputs/apk/website/release/ && \
+RUN cd ~/deltachat-android-ii && \
+    ./gradlew
+RUN cd ~/deltachat-android-ii && \
+    ./gradlew build
+RUN cd ~/deltachat-android-ii/build/outputs/apk/website/release/ && \
+    ls *
 #    ls Deltachat-website-release-unsigned*.apk
