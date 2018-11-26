@@ -1,5 +1,10 @@
 FROM debian:stretch
 
+# Add a build user that owns /usr/local
+RUN groupadd --gid 1000 build \
+&& useradd --uid 1000 --gid build --shell /bin/bash --create-home build \
+&& chown -R build:build /usr/local
+
 RUN apt-get update \
 && apt-get upgrade -y \
 && apt-get install -y \
@@ -47,6 +52,3 @@ RUN cd /usr/local/android-sdk-linux && \
     rm ${NDK_FILE}
 RUN ln -s /usr/local/android-sdk-linux/android-ndk-r14b ${ANDROID_HOME}/ndk-bundle
 ENV PATH ${PATH}:${ANDROID_HOME}/ndk-bundle
-
-RUN groupadd --gid 1000 build \
-&& useradd --uid 1000 --gid build --shell /bin/bash --create-home build
