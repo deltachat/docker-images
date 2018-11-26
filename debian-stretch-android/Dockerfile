@@ -37,8 +37,7 @@ ENV ANDROID_LICENSES ${ANDROID_HOME}/licenses
 RUN mkdir ${ANDROID_LICENSES} && \
     echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> ${ANDROID_LICENSES}/android-sdk-license
 RUN sdkmanager "platform-tools" "platforms;android-27"
-RUN cd ~ && \
-    git clone --recursive https://github.com/deltachat/deltachat-android-ii.git
+
 # this would load the most current NDK Bundle. There have been problems with that in the past and we are using r14b currently (see the Readme.MD in android-ii)
 # RUN sdkmanager "ndk-bundle"
 ENV NDK_FILE android-ndk-r14b-linux-x86_64.zip
@@ -48,12 +47,3 @@ RUN cd /usr/local/android-sdk-linux && \
     rm ${NDK_FILE}
 RUN ln -s /usr/local/android-sdk-linux/android-ndk-r14b ${ANDROID_HOME}/ndk-bundle
 ENV PATH ${PATH}:${ANDROID_HOME}/ndk-bundle
-RUN cd ~/deltachat-android-ii && \
-    ndk-build
-RUN cd ~/deltachat-android-ii && \
-    ./gradlew
-RUN cd ~/deltachat-android-ii && \
-    ./gradlew build
-RUN cd ~/deltachat-android-ii/build/outputs/apk/website/release/ && \
-    ls *
-#    ls Deltachat-website-release-unsigned*.apk
