@@ -1,9 +1,6 @@
 # Official container from node.js based on Debian Stretch and node v11
 FROM node:11-stretch
 
-# HACK! to make this image work well on one of our slaves.
-RUN useradd -m -u 1011 -s /bin/bash jenkins
-
 # Update apt
 RUN apt-get update && apt-get upgrade -y
 
