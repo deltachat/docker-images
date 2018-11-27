@@ -11,6 +11,10 @@ Linux image based on Debian Stretch and node v11. It contains support for runnin
 * `deltachat-desktop`
 * `deltachat-node`
 
+### `debian-stretch-android`
+
+Linux image for building `deltachat-android-ii` based on Debian Stretch.
+
 ## Build
 
 Currently you build all images by doing `make build`.
