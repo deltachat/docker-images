@@ -28,20 +28,22 @@ RUN apt-get install -y software-properties-common && \
 RUN groupadd --gid 1000 build \
 && useradd --uid 1000 --gid build --shell /bin/bash --create-home build
 
+# Basic environment variables
+ENV ANDROID_HOME /usr/local/android-sdk-linux
+ENV ANDROID_REPOSITORY https://dl.google.com/android/repository
+ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/ndk-bundle
+
+# Let build user own android home
+RUN mkdir ${ANDROID_HOME} && chown -R build:build ${ANDROID_HOME}
+
 # Do everyting as build user from here on
 USER build
 WORKDIR /home/build
 
-# Basic environment variables
-ENV ANDROID_HOME /home/build/android-sdk-linux
-ENV ANDROID_REPOSITORY https://dl.google.com/android/repository
-ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/ndk-bundle
-
 # Download and install Android SDK
 ENV ANDROID_SDK_FILENAME sdk-tools-linux-4333796.zip
 ENV ANDROID_SDK_URL ${ANDROID_REPOSITORY}/${ANDROID_SDK_FILENAME}
-RUN mkdir ${ANDROID_HOME} && \
-    cd ${ANDROID_HOME} && \
+RUN cd ${ANDROID_HOME} && \
     wget -q ${ANDROID_SDK_URL} && \
     unzip ${ANDROID_SDK_FILENAME} && \
     rm ${ANDROID_SDK_FILENAME}
