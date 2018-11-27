@@ -17,15 +17,23 @@ Linux image for building `deltachat-android-ii` based on Debian Stretch.
 
 ## Build
 
-Currently you build all images by doing `make build`.
+Currently, each image has its own `Makefile`. To build e.g. `debian-stretch-android` you do:
+
+```sh
+$ cd debian-stretch-android && make
+```
+
+To push it to `hub.docker.com` do:
+
+```sh
+$ cd debian-stretch-android && make push
+```
 
 In order to push images to `hub.docker.com` you first need to be logged in:
 
 ```sh
 $ docker login
 ```
-
-Before doing `make push`.
 
 This only needs to be done once per machine. Credentials are stored in `~/.docker/config.json`.
 
